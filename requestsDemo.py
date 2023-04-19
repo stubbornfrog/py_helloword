@@ -1,11 +1,15 @@
 # -*- coding:utf-8 -*-
 # @author:zmm
 # @date:2023/2/17
+import time
+
 import requests
 from xml.dom.minidom import parse
 import xml.dom.minidom
 
-temp_cookie = 'authTicket.saamex0100010001=ssmall_shop_base_web000001867d1f568100008c1a28fb530a617420b6bbe77b4b1dfd293e'
+# authTicket=ssmall_shop_base_web0000018681351db30000a5e4aea0795634bbd753b8c3ef878d9445f2; authTicket.saamex0100010001=ssmall_shop_base_web0000018681351db30000a5e4aea0795634bbd753b8c3ef878d9445f2; JSESSIONID=1396EA21F3CA0605391EC40754118560; Hm_lvt_8a03b96c3de5e79bee6bb392c8eb4863=1677202142; Hm_lpvt_8a03b96c3de5e79bee6bb392c8eb4863=1677205010
+
+temp_cookie = 'authTicket=ssmall_shop_base_web0000018695bc7fa60001695fee56c50908542f063c57ecd19091d9f8'
 
 params = {"app_id": "saamex0100010001", "rack_parent_id": "16Y4L5Fb001300b8", "rack_id": "16Y4L7DQ00070000"}
 response = requests.get("https://saas.e-pointchina.com.cn/shop/base/serv/rack/rack_for_single", params=params)
@@ -50,7 +54,9 @@ for i in temp_cookie.split(';'):
     v = i.split("=")
     cookies_dict[v[0]] = v[1]
 
-requests_post = requests.post("https://saas.e-pointchina.com.cn/shop/base/serv/order/prepare_pay", data,
+for i in range(10):
+    requests_post = requests.post("https://saas.e-pointchina.com.cn/shop/base/serv/order/prepare_pay", data,
                               cookies=cookies_dict)
-print(requests_post.text)
+    print(requests_post.text)
+    time.sleep(0.6)
 

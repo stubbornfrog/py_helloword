@@ -8,4 +8,6 @@ print("当前时间为{}年{}月{}日{}点{}分{}秒".format(time_tuple[0], time
                                                   time_tuple[4], time_tuple[5]))
 
 
-
+for i in range(10):
+    print(i)
+    time.sleep(0.5)
